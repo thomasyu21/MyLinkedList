@@ -85,6 +85,9 @@ public class MyLinkedList{
   }
 
   public String toString(){
+    if (size == 0){
+      return "[]";
+    }
     String result = "[";
     Node current = start;
     while (current != null){
@@ -95,6 +98,9 @@ public class MyLinkedList{
   }
 
   public String toStringReversed(){
+    if (size == 0){
+      return "[]";
+    }
     String result = "[";
     Node current = end;
     while (current != null){
