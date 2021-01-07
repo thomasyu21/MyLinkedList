@@ -18,6 +18,7 @@ public class MyLinkedList{
      end = n;
    }else{
      end.setNext(n);
+     n.setPrev(end);
      end = n;
    }
    size++;
@@ -25,6 +26,9 @@ public class MyLinkedList{
  }
 
  public void add(int index, String value){
+   if (index < 0 || index > size){
+     throw new IndexOutOfBoundsException("Index " + index + " is out of bounds. The range is index < 0 || index > size");
+   }
    Node n = new Node(value);
    if (index == 0 && size == 0){
      start = n;
@@ -40,7 +44,7 @@ public class MyLinkedList{
    }else{
      int count = 0;
      Node current = start;
-     while (count < index){
+     while (count < index-1){
        current = current.getNext();
        count++;
      }
@@ -53,9 +57,12 @@ public class MyLinkedList{
  }
 
  public String get(int index){
+   if (index < 0 || index >= size){
+     throw new IndexOutOfBoundsException("Index " + index + " is out of bounds. The range is index < 0 || index >= size");
+   }
    int count = 0;
    Node current = start;
-   while (count <= index){
+   while (count < index){
      current = current.getNext();
      count++;
    }
@@ -63,9 +70,12 @@ public class MyLinkedList{
  }
 
   public String set(int index, String value){
+    if (index < 0 || index >= size){
+      throw new IndexOutOfBoundsException("Index " + index + " is out of bounds. The range is index < 0 || index >= size");
+    }
     int count = 0;
     Node current = start;
-    while (count <= index){
+    while (count < index){
       current = current.getNext();
       count++;
     }
@@ -84,7 +94,7 @@ public class MyLinkedList{
     return result.substring(0, result.length()-2) + "]";
   }
 
-  public String toStringReverse(){
+  public String toStringReversed(){
     String result = "[";
     Node current = end;
     while (current != null){
