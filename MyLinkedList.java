@@ -42,13 +42,55 @@ public class MyLinkedList{
      Node current = start;
      while (count < index){
        current = current.getNext();
+       count++;
      }
      n.setNext(current.getNext());
      (current.getNext()).setPrev(n);
      current.setNext(n);
      n.setPrev(current);
-     size++;
    }
+   size++;
  }
 
+ public String get(int index){
+   int count = 0;
+   Node current = start;
+   while (count <= index){
+     current = current.getNext();
+     count++;
+   }
+   return current.getData();
+ }
+
+  public String set(int index, String value){
+    int count = 0;
+    Node current = start;
+    while (count <= index){
+      current = current.getNext();
+      count++;
+    }
+    String temp = current.getData();
+    current.setData(value);
+    return temp;
+  }
+
+  public String toString(){
+    String result = "[";
+    Node current = start;
+    while (current != null){
+      result+= current.getData() + ", ";
+      current = current.getNext();
+    }
+    return result.substring(0, result.length()-2) + "]";
+  }
+
+  public String toStringReverse(){
+    String result = "[";
+    Node current = end;
+    while (current != null){
+      result+= current.getData() + ", ";
+      current = current.getPrev();
+    }
+    return result.substring(0, result.length()-2) + "]";
+  }
 }
