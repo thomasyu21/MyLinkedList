@@ -85,39 +85,50 @@ public class MyLinkedList{
   }
 
   public String remove(int index){
-    if (index < 0 || index >= size()){
+    if (index < 0 || index >= size){
       throw new IndexOutOfBoundsException("Index " + index + " is out of bounds. The range is index > 0 && index < size. The size is " + size() + ".");
     }
+    String temp = "";
     if (size == 1){
-      String temp = start.getData();
+      temp = start.getData();
       start = null;
       end = null;
-      size--;
-      return temp;
     }else if (index == size-1){
-      String temp = end.getData();
+      temp = end.getData();
       (end.getPrev()).setNext(null);
       end = end.getPrev();
-      size--;
-      return temp;
     }else if (index == 0){
-      String temp = start.getData();
+      temp = start.getData();
       (start.getNext()).setPrev(null);
       start = start.getNext();
-      size--;
-      return temp;
     }else{
-      Node temp = start;
+      Node current = start;
       int count = 0;
       while (count < index){
-        temp = temp.getNext();
+        current = current.getNext();
         count++;
       }
-      (temp.getPrev()).setNext(temp.getNext());
-      (temp.getNext()).setPrev(temp.getPrev());
-      size--;
-      return temp.getData();
+      (current.getPrev()).setNext(current.getNext());
+      (current.getNext()).setPrev(current.getPrev());
+      temp = current.getData();
     }
+    size--;
+    return temp;
+  }
+
+  public void extend(MyLinkedList other){
+    if (this.size == 0){
+      this.start = other.start;
+      this.end = other.end;
+    }else if (other.size != 0){
+      (this.end).setNext(other.start);
+      (other.start).setPrev(this.end);
+      this.end = other.end;
+    }
+    this.size += other.size;
+    other.size = 0;
+    other.start = null;
+    other.end = null;
   }
 
   public String toString(){
